@@ -1,6 +1,14 @@
 resource "aws_apigatewayv2_api" "http_api" {
   name          = "website-api"
   protocol_type = "HTTP"
+
+  cors_configuration {
+    allow_headers = ["*"]
+    allow_methods = ["GET", "POST", "OPTIONS"]
+    allow_origins = ["http://lukas-probst.com", "http://localhost:5501"]
+    expose_headers = ["*"]
+    max_age = 3600
+  }
 }
 
 resource "aws_apigatewayv2_integration" "lambda_integration" {
